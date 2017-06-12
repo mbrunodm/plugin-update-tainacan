@@ -91,5 +91,24 @@ class Update_Tainacan_Admin {
         include_once( 'partials/class-update-tainacan-helper.php' );
         include_once( 'partials/update-tainacan-admin-display.php' );
     }
+    
+    /**
+     * Checks and return if plugin fields are correctly set up
+     *
+     * @since    1.0.0
+     * @param      string    $input       The name of this plugin.
+     * @return     array     $valid       An array with valid options set up
+     */
+    public function validate($input) {
+        $valid = array();
+        
+        var_dump($input);
+
+        return $valid;
+    }
+    
+    public function options_update() {
+        var_dump($this, $_POST);
+    }
 
 }

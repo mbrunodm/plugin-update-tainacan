@@ -17,7 +17,7 @@ $helper = new Update_Tainacan_Helper();
 
     <h2> <?php echo esc_html(get_admin_page_title()); ?> - Tainacan </h2> <hr>
 
-    <form action="options.php" method="post" name="ibram_config">
+    <form action="" method="post" name="update_config">
         <p>
             <?php esc_attr_e("Select the plugins / themes you'd like to update", $this->plugin_name); ?>:
             <br/>
@@ -38,9 +38,9 @@ $helper = new Update_Tainacan_Helper();
             <?php
         endforeach;
         ?>
-        
+
         <br><hr>
-        
+
         <h4> <?php esc_attr_e("Temas", $this->plugin_name); ?> </h4> <hr>
         <?php
         settings_fields($this->plugin_name);
