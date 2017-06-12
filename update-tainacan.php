@@ -62,7 +62,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-update-tainacan.php';
  */
 function run_plugin_name() {
 
-	$plugin = new Plugin_Name();
+	$plugin = new Update_Tainacan();
 	$plugin->run();
 
 }
