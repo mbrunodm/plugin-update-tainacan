@@ -88,8 +88,8 @@ class Update_Tainacan_Admin {
      * @since    1.0.0
      */
     public function display_update_setup_page() {
-        include_once( 'partials/class-ibram-tainacan-helper.php' );
-        include_once( 'partials/ibram-tainacan-admin-display.php' );
+        include_once( 'partials/class-update-tainacan-helper.php' );
+        include_once( 'partials/update-tainacan-admin-display.php' );
     }
 
 }
