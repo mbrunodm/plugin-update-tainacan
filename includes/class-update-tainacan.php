@@ -100,7 +100,7 @@ class Update_Tainacan {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-update-tainacan-public.php';
 
-		$this->loader = new Plugin_Name_Loader();
+		$this->loader = new Update_Tainacan_Loader();
 
 	}
 
@@ -115,7 +115,7 @@ class Update_Tainacan {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Plugin_Name_i18n();
+		$plugin_i18n = new Update_Tainacan_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -130,7 +130,7 @@ class Update_Tainacan {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Plugin_Name_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Update_Tainacan_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -146,7 +146,7 @@ class Update_Tainacan {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Plugin_Name_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Update_Tainacan_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );

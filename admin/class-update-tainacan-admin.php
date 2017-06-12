@@ -48,7 +48,7 @@ class Update_Tainacan_Admin {
      * @since    1.0.0
      */
     public function enqueue_styles() {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/plugin-name-admin.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/update-tainacan-admin.css', array(), $this->version, 'all');
     }
 
     /**
@@ -58,18 +58,28 @@ class Update_Tainacan_Admin {
      */
     public function enqueue_scripts() {
 
-        /**
-         * This function is provided for demonstration purposes only.
-         *
-         * An instance of this class should be passed to the run() function
-         * defined in Plugin_Name_Loader as all of the hooks are defined
-         * in that particular class.
-         *
-         * The Plugin_Name_Loader will then create the relationship
-         * between the defined hooks and the functions defined in this
-         * class.
-         */
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/plugin-name-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/update-tainacan-admin.js', array('jquery'), $this->version, false);
+    }
+    
+    /**
+     * Register Update_Tainacan's option link at wordpress admin panel
+     *
+     * @since    1.0.0
+     */
+    public function add_update_tainacan_menu() {
+        add_options_page('Update Tainacan Plugin', 'Update Tainacan Plugin', 'manage_options', $this->plugin_name, array($this, 'display_update_setup_page'));
+    }
+    
+    /**
+     * Adds Update_Tainacan's settings shortcut at plugins' list
+     *
+     * @since    1.0.0
+     */
+    public function add_action_links($links) {
+        $settings_link = array(
+            '<a href="' . admin_url('options-general.php?page=' . $this->plugin_name) . '">' . __('Settings', $this->plugin_name) . '</a>',
+        );
+        return array_merge($settings_link, $links);
     }
 
 }
