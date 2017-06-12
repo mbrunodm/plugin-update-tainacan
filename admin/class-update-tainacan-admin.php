@@ -67,7 +67,7 @@ class Update_Tainacan_Admin {
      * @since    1.0.0
      */
     public function add_update_tainacan_menu() {
-        add_options_page('Update Tainacan Plugin', 'Update Tainacan Plugin', 'manage_options', $this->plugin_name, array($this, 'display_update_setup_page'));
+        add_options_page('Update Tainacan Plugin', 'Update Tainacan Config', 'manage_options', $this->plugin_name, array($this, 'display_update_setup_page'));
     }
     
     /**
@@ -80,6 +80,16 @@ class Update_Tainacan_Admin {
             '<a href="' . admin_url('options-general.php?page=' . $this->plugin_name) . '">' . __('Settings', $this->plugin_name) . '</a>',
         );
         return array_merge($settings_link, $links);
+    }
+    
+    /**
+     * Loads admin internal pages
+     *
+     * @since    1.0.0
+     */
+    public function display_update_setup_page() {
+        include_once( 'partials/class-ibram-tainacan-helper.php' );
+        include_once( 'partials/ibram-tainacan-admin-display.php' );
     }
 
 }

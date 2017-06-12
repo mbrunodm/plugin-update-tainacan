@@ -26,24 +26,24 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in includes/class-update-tainacan-activator.php
  */
-function activate_plugin_name() {
+function activate_update_tainacan() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-update-tainacan-activator.php';
-	Plugin_Name_Activator::activate();
+	Update_Tainacan_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-plugin-name-deactivator.php
+ * This action is documented in includes/class-update-tainacan-deactivator.php
  */
-function deactivate_plugin_name() {
+function deactivate_update_tainacan() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-update-tainacan-deactivator.php';
-	Plugin_Name_Deactivator::deactivate();
+	Update_Tainacan_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_update-tainacan' );
-register_deactivation_hook( __FILE__, 'deactivate_update-tainacan' );
+register_activation_hook( __FILE__, 'activate_update_tainacan' );
+register_deactivation_hook( __FILE__, 'deactivate_update_tainacan' );
 
 /**
  * The core plugin class that is used to define internationalization,
