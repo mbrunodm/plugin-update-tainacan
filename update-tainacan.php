@@ -4,7 +4,7 @@
  *
  * @link              https://github.com/medialab-ufg/plugin-update-tainacan
  * @since             1.0.0
- * @package           plugin-update-tainacan
+ * @package           update-tainacan
  *
  * @wordpress-plugin
  * Plugin Name:       Update Tainacan
@@ -15,7 +15,7 @@
  * Author URI:        https://github.com/medialab-ufg/plugin-update-tainacan
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       plugin-update-tainacan
+ * Text Domain:       update-tainacan
  * Domain Path:       /languages
  */
 
@@ -29,7 +29,7 @@ if ( ! defined( 'WPINC' ) ) {
  * This action is documented in includes/class-plugin-name-activator.php
  */
 function activate_plugin_name() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name-activator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-update-tainacan-activator.php';
 	Plugin_Name_Activator::activate();
 }
 
@@ -38,18 +38,18 @@ function activate_plugin_name() {
  * This action is documented in includes/class-plugin-name-deactivator.php
  */
 function deactivate_plugin_name() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name-deactivator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-update-tainacan-deactivator.php';
 	Plugin_Name_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_plugin_name' );
-register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
+register_activation_hook( __FILE__, 'activate_update-tainacan' );
+register_deactivation_hook( __FILE__, 'deactivate_update-tainacan' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-update-tainacan.php';
 
 /**
  * Begins execution of the plugin.
