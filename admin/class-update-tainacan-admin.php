@@ -12,6 +12,12 @@
  */
 class Update_Tainacan_Admin {
 
+    public $links = [
+        'ibram-tainacan' => 'https://github.com/medialab-ufg/ibram-tainacan/archive/master.zip',
+        'data_aacr2' => 'https://github.com/medialab-ufg/data_aacr2/archive/master.zip',
+        'tainacan' => 'https://github.com/medialab-ufg/tainacan/archive/dev.zip'
+    ];
+
     /**
      * The ID of this plugin.
      *
@@ -60,7 +66,7 @@ class Update_Tainacan_Admin {
 
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/update-tainacan-admin.js', array('jquery'), $this->version, false);
     }
-    
+
     /**
      * Register Update_Tainacan's option link at wordpress admin panel
      *
@@ -69,7 +75,7 @@ class Update_Tainacan_Admin {
     public function add_update_tainacan_menu() {
         add_options_page('Update Tainacan Plugin', 'Update Tainacan Config', 'manage_options', $this->plugin_name, array($this, 'display_update_setup_page'));
     }
-    
+
     /**
      * Adds Update_Tainacan's settings shortcut at plugins' list
      *
@@ -81,7 +87,7 @@ class Update_Tainacan_Admin {
         );
         return array_merge($settings_link, $links);
     }
-    
+
     /**
      * Loads admin internal pages
      *
@@ -91,24 +97,39 @@ class Update_Tainacan_Admin {
         include_once( 'partials/class-update-tainacan-helper.php' );
         include_once( 'partials/update-tainacan-admin-display.php' );
     }
-    
-    /**
-     * Checks and return if plugin fields are correctly set up
-     *
-     * @since    1.0.0
-     * @param      string    $input       The name of this plugin.
-     * @return     array     $valid       An array with valid options set up
-     */
-    public function validate($input) {
-        $valid = array();
-        
-        var_dump($input);
 
-        return $valid;
-    }
-    
     public function options_update() {
-        var_dump($this, $_POST);
+        //var_dump($_POST);
+        if (isset($_POST['action'])):
+            $Plugins = (isset($_POST['update_plugins']) ? $_POST['update_plugins'] : null);
+            $Themes = (isset($_POST['update_themes']) ? $_POST['update_themes'] : null);
+
+            if ($Plugins):
+                foreach ($Plugins as $Plugin):
+                    $this->do_update($Plugin, 'plugins', $_POST['update-tainacan'][$Plugin]);
+                endforeach;
+            endif;
+
+            if ($Themes):
+                foreach ($Themes as $Theme):
+                    $this->do_update($Theme, 'themes', $_POST['update-tainacan'][$Theme]);
+                endforeach;
+            endif;
+
+        endif;
+    }
+
+    private function do_update($plugin, $folder, $plugin_file) {
+        //var_dump($plugin, $folder, $plugin_file);
+        //exit();
+        if (!empty($plugin_file)):
+            $Link = (isset($this->links[$plugin]) ? $this->links[$plugin] : null);
+            if ($Link):
+                file_put_contents(dirname(__FILE__) . "../../../../" . $folder . "/" . $plugin . "/Tmpfile.zip", file_get_contents($Link));
+            endif;
+        endif;
+
+        //file_put_contents("Tmpfile.zip", file_get_contents("http://someurl/file.zip"));
     }
 
 }

@@ -29,14 +29,19 @@ $helper = new Update_Tainacan_Helper();
         foreach ($helper->plugins as $key => $value):
             ?>
             <fieldset class="update_options">
-                <input type="checkbox" name="update_plugins" value="<?= $key ?>" />
+                <input type="checkbox" name="update_plugins[]" value="<?= $key ?>" />
                 <label for="update_plugins">
-                    <?php // printf( __("Configure the collection %s", $this->plugin_name),  $form_title ); ?>
                     <?php echo $key ?>
                 </label>
+                <select name="<?php echo $this->plugin_name; ?>[<?php echo $key; ?>]" id="<?php echo $key; ?>">
+                    <option value=""> <?php esc_attr_e('Select the plugin', $this->plugin_name); ?> </option>
+                    <?php $helper->get_selected_opts('plugins'); ?>
+                </select>
             </fieldset>
             <?php
         endforeach;
+//        echo "<pre>";
+//        var_dump(get_plugins());
         ?>
 
         <br><hr>
@@ -48,10 +53,14 @@ $helper = new Update_Tainacan_Helper();
         foreach ($helper->themes as $key => $value):
             ?>
             <fieldset class="update_options">
-                <input type="checkbox" name="update_themes" value="<?= $key ?>" />
+                <input type="checkbox" name="update_themes[]" value="<?= $key ?>" />
                 <label for="update_themes">
                     <?php echo $key ?>
                 </label>
+                <select name="<?php echo $this->plugin_name; ?>[<?php echo $key; ?>]" id="<?php echo $key; ?>">
+                    <option value=""> <?php esc_attr_e('Select the theme', $this->plugin_name); ?> </option>
+                    <?php $helper->get_selected_opts('themes'); ?>
+                </select>
             </fieldset>
             <?php
         endforeach;
