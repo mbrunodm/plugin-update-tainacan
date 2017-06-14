@@ -17,6 +17,11 @@ class Update_Tainacan_Admin {
         'data_aacr2' => 'https://github.com/medialab-ufg/data_aacr2/archive/master.zip',
         'tainacan' => 'https://github.com/medialab-ufg/tainacan/archive/dev.zip'
     ];
+    public $branches = [
+        'ibram-tainacan' => 'master',
+        'data_aacr2' => 'master',
+        'tainacan' => 'dev'
+    ];
 
     /**
      * The ID of this plugin.
@@ -119,13 +124,50 @@ class Update_Tainacan_Admin {
         endif;
     }
 
+    private function recursiveRemoveDirectory($directory) {
+        if (is_dir($directory)) {
+            foreach (glob("{$directory}/{,.}[!.,!..]*", GLOB_MARK | GLOB_BRACE) as $file) {
+                if (is_dir($file)) {
+                    $this->recursiveRemoveDirectory($file);
+                } else {
+                    @unlink($file);
+                }
+            }
+            @rmdir($directory);
+        }
+    }
+
     private function do_update($plugin, $folder, $plugin_file) {
-        //var_dump($plugin, $folder, $plugin_file);
-        //exit();
+//        var_dump($plugin, $folder, $plugin_file);
+//        exit();
         if (!empty($plugin_file)):
             $Link = (isset($this->links[$plugin]) ? $this->links[$plugin] : null);
             if ($Link):
-                file_put_contents(dirname(__FILE__) . "../../../../" . $folder . "/" . $plugin . "/Tmpfile.zip", file_get_contents($Link));
+                //file_put_contents(dirname(__FILE__) . "../../../../" . $folder . "/" . $plugin . "/Tmpfile.zip", file_get_contents($Link));
+                $Tmpfile = dirname(__FILE__) . "../../../../" . $folder . "/Tmpfile.zip";
+                $Path = dirname(__FILE__) . "../../../../" . $folder . "/";
+                file_put_contents($Tmpfile, file_get_contents($Link));
+
+                $zip = new ZipArchive;
+                $res = $zip->open($Tmpfile);
+                if ($res === TRUE):
+                    $time = time();
+                    if ($zip->extractTo($Path)):
+                        rename($Path . $plugin, $Path . $plugin . '_BKP_' . $time);
+                        rename($Path . $plugin . '-' . $this->branches[$plugin], $Path . $plugin);
+                    endif;
+                    $zip->close();
+
+                    if (is_dir($Path . $plugin . '_BKP_' . $time)):
+                        $this->recursiveRemoveDirectory($Path . $plugin . '_BKP_' . $time);
+                    endif;
+
+                    unlink($Tmpfile);
+                    echo '<script>alert("Sucesso! Dados atualizados com sucesso.");</script>';
+                else:
+                    //ERRO
+                    echo '<script>alert("Erro! Erro ao atualizar, verifique as configurações do plugin.");</script>';
+                endif;
             endif;
         endif;
 
